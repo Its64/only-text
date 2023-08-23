@@ -1,0 +1,84 @@
+[gd_scene load_steps=4 format=3 uid="uid://oecb8ju5dopi"]
+
+[ext_resource type="Script" path="res://platform2.gd" id="1_pjh7t"]
+[ext_resource type="Texture2D" uid="uid://b5tlwiuho7s2s" path="res://onlu text/platform.png" id="1_u2c6j"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_loj3s"]
+size = Vector2(49, 13)
+
+[node name="Platform" type="StaticBody2D"]
+y_sort_enabled = true
+script = ExtResource("1_pjh7t")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 1
+y_sort_enabled = true
+texture = ExtResource("1_u2c6j")
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(-1.5, -1.5)
+shape = SubResource("RectangleShape2D_loj3s")
+
+[node name="Red" type="Node2D" parent="."]
+visible = false
+
+[node name="ColorRect" type="ColorRect" parent="Red"]
+z_index = 1
+offset_left = -26.0
+offset_top = -8.0
+offset_right = 23.0
+offset_bottom = 5.0
+color = Color(0, 0, 0, 0)
+
+[node name="ColorRect2" type="ColorRect" parent="Red"]
+z_index = 1
+offset_left = -23.0
+offset_top = 5.0
+offset_right = 26.0
+offset_bottom = 8.0
+color = Color(0, 0, 0, 0)
+
+[node name="ColorRect3" type="ColorRect" parent="Red"]
+z_index = 1
+offset_left = 23.0
+offset_top = -5.0
+offset_right = 26.0
+offset_bottom = 5.0
+color = Color(0, 0, 0, 0)
+
+[node name="ColorRect4" type="ColorRect" parent="Red"]
+z_index = 1
+offset_left = 23.0
+offset_top = -6.0
+offset_right = 25.0
+offset_bottom = -5.0
+color = Color(0, 0, 0, 0)
+
+[node name="ColorRect6" type="ColorRect" parent="Red"]
+z_index = 1
+offset_left = -24.0
+offset_top = 5.0
+offset_right = -23.0
+offset_bottom = 7.0
+color = Color(0, 0, 0, 0)
+
+[node name="ColorRect7" type="ColorRect" parent="Red"]
+z_index = 1
+offset_left = -25.0
+offset_top = 5.0
+offset_right = -24.0
+offset_bottom = 6.0
+color = Color(0, 0, 0, 0)
+
+[node name="ColorRect5" type="ColorRect" parent="Red"]
+z_index = 1
+offset_left = 23.0
+offset_top = -7.0
+offset_right = 24.0
+offset_bottom = -6.0
+color = Color(0, 0, 0, 0)
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

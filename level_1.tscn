@@ -1,0 +1,260 @@
+[gd_scene load_steps=20 format=3 uid="uid://didm5aiwetk4q"]
+
+[ext_resource type="Script" path="res://Main.gd" id="1_5qixu"]
+[ext_resource type="PackedScene" uid="uid://bpi0xfwg4at7h" path="res://platform.tscn" id="1_sqdyn"]
+[ext_resource type="PackedScene" uid="uid://qd0xr7e5jixt" path="res://player.tscn" id="2_yk0v5"]
+[ext_resource type="Texture2D" uid="uid://djf0v3sdst3gg" path="res://onlu text/plus.png" id="3_425vi"]
+[ext_resource type="PackedScene" uid="uid://prlnsutlnau7" path="res://fake.tscn" id="3_y2w2c"]
+[ext_resource type="Texture2D" uid="uid://uvmnqavqsxga" path="res://onlu text/plus hover.png" id="4_ddhcl"]
+[ext_resource type="PackedScene" uid="uid://dkn0chrqkt5kq" path="res://dont.tscn" id="4_nv5fr"]
+[ext_resource type="Texture2D" uid="uid://bnaswv578dvm1" path="res://onlu text/remove.png" id="7_sivj2"]
+[ext_resource type="Texture2D" uid="uid://ceui3ur7b3qqe" path="res://onlu text/remove hover.png" id="8_7sjtf"]
+[ext_resource type="PackedScene" uid="uid://oecb8ju5dopi" path="res://platform2.tscn" id="8_rvhe0"]
+[ext_resource type="PackedScene" uid="uid://fla7i05avcvb" path="res://dont2.tscn" id="9_34xx7"]
+[ext_resource type="FontFile" uid="uid://d2jwjs24yenri" path="res://onlu text/font/m5x7.ttf" id="9_ak6fb"]
+[ext_resource type="Script" path="res://Count.gd" id="10_dcbwb"]
+[ext_resource type="AudioStream" uid="uid://ba1tw3vtdosls" path="res://onlu text/music/music.mp3" id="10_x2awp"]
+[ext_resource type="AudioStream" uid="uid://c8qauo0hitcwd" path="res://onlu text/music/sound.mp3" id="11_736jn"]
+[ext_resource type="PackedScene" uid="uid://38uorx8dco5" path="res://win.tscn" id="16_lu8k4"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_im456"]
+font = ExtResource("9_ak6fb")
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_676r4"]
+size = Vector2(20, 37.5)
+
+[sub_resource type="LabelSettings" id="LabelSettings_kqb6d"]
+font = ExtResource("9_ak6fb")
+font_color = Color(0, 0, 0, 1)
+
+[node name="Level1" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("1_5qixu")
+
+[node name="Bg" type="ColorRect" parent="."]
+z_index = -2
+offset_left = -132.0
+offset_top = -79.0
+offset_right = 64.0
+offset_bottom = 50.0
+
+[node name="player" parent="." instance=ExtResource("2_yk0v5")]
+position = Vector2(-34, -15)
+
+[node name="music" type="AudioStreamPlayer2D" parent="player"]
+position = Vector2(-1, 0)
+stream = ExtResource("10_x2awp")
+volume_db = -10.0
+autoplay = true
+
+[node name="sound" type="AudioStreamPlayer2D" parent="player"]
+position = Vector2(34, 15)
+stream = ExtResource("11_736jn")
+volume_db = -5.0
+
+[node name="Camera" type="Camera2D" parent="."]
+position = Vector2(-34, -15)
+zoom = Vector2(6, 6)
+limit_smoothed = true
+position_smoothing_speed = 20.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Camera"]
+layer = 5
+follow_viewport_enabled = true
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="Camera"]
+layer = 5
+scroll_base_scale = Vector2(0, 0)
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="Camera/ParallaxBackground"]
+
+[node name="Plus" type="TextureButton" parent="Camera/ParallaxBackground/ParallaxLayer"]
+z_index = 5
+offset_left = 179.0
+offset_top = 39.0
+offset_right = 189.0
+offset_bottom = 49.0
+texture_normal = ExtResource("3_425vi")
+texture_hover = ExtResource("4_ddhcl")
+
+[node name="Remove" type="TextureButton" parent="Camera/ParallaxBackground/ParallaxLayer"]
+z_index = 5
+offset_left = 179.0
+offset_top = 51.0
+offset_right = 189.0
+offset_bottom = 61.0
+texture_normal = ExtResource("7_sivj2")
+texture_hover = ExtResource("8_7sjtf")
+
+[node name="Count" type="Label" parent="Camera/ParallaxBackground/ParallaxLayer"]
+offset_left = 166.0
+offset_top = 36.0
+offset_right = 181.0
+offset_bottom = 52.0
+text = "0"
+label_settings = SubResource("LabelSettings_im456")
+script = ExtResource("10_dcbwb")
+
+[node name="Fake" parent="." instance=ExtResource("3_y2w2c")]
+position = Vector2(-77, 76)
+
+[node name="Fakedd" parent="." instance=ExtResource("8_rvhe0")]
+visible = false
+position = Vector2(2, -49)
+
+[node name="Walls" type="Node2D" parent="."]
+
+[node name="Area2D" type="StaticBody2D" parent="Walls"]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Walls/Area2D"]
+position = Vector2(72, -18)
+shape = SubResource("RectangleShape2D_676r4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Area2D"]
+position = Vector2(-140, -16.75)
+shape = SubResource("RectangleShape2D_676r4")
+
+[node name="Dont" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Dont2" parent="Dont" instance=ExtResource("4_nv5fr")]
+position = Vector2(-67, 96)
+
+[node name="Dont4" parent="Dont" instance=ExtResource("4_nv5fr")]
+position = Vector2(-103, 96)
+
+[node name="Dont5" parent="Dont" instance=ExtResource("4_nv5fr")]
+position = Vector2(52, 87)
+
+[node name="Dont6" parent="Dont" instance=ExtResource("4_nv5fr")]
+position = Vector2(3, 60)
+
+[node name="Dont7" parent="Dont" instance=ExtResource("4_nv5fr")]
+position = Vector2(34, 87)
+
+[node name="Dont9" parent="Dont" instance=ExtResource("4_nv5fr")]
+position = Vector2(-81, 5)
+
+[node name="Dont" parent="Dont" instance=ExtResource("9_34xx7")]
+position = Vector2(-85, 96)
+
+[node name="Dont10" parent="Dont" instance=ExtResource("9_34xx7")]
+position = Vector2(-115, 49)
+
+[node name="Dont3" parent="Dont" instance=ExtResource("9_34xx7")]
+position = Vector2(-49, 96)
+
+[node name="Dont11" parent="Dont" instance=ExtResource("4_nv5fr")]
+position = Vector2(-6, 94)
+
+[node name="Dont13" parent="Dont" instance=ExtResource("9_34xx7")]
+position = Vector2(-24, 94)
+
+[node name="Dont8" parent="Dont" instance=ExtResource("9_34xx7")]
+position = Vector2(41, 3)
+
+[node name="Platforms" type="Node2D" parent="."]
+y_sort_enabled = true
+
+[node name="Platform" parent="Platforms" instance=ExtResource("1_sqdyn")]
+position = Vector2(-45, 5)
+
+[node name="Platform2" parent="Platforms" instance=ExtResource("1_sqdyn")]
+position = Vector2(34, 18)
+
+[node name="Platform3" parent="Platforms" instance=ExtResource("1_sqdyn")]
+position = Vector2(-98, 32)
+
+[node name="Platform4" parent="Platforms" instance=ExtResource("1_sqdyn")]
+position = Vector2(-6, 75)
+
+[node name="Win" parent="." instance=ExtResource("16_lu8k4")]
+position = Vector2(-25, 120)
+
+[node name="Tutorial" type="Node2D" parent="."]
+
+[node name="Label" type="Label" parent="Tutorial"]
+z_index = -1
+offset_left = -126.0
+offset_top = -62.0
+offset_right = -84.0
+offset_bottom = -39.0
+text = "Tutorial."
+label_settings = SubResource("LabelSettings_kqb6d")
+
+[node name="first2" type="Label" parent="Tutorial"]
+z_index = -1
+offset_left = -8.0
+offset_top = -17.0
+offset_right = 105.0
+offset_bottom = 6.0
+scale = Vector2(0.75, 0.75)
+text = "D - don't touch"
+label_settings = SubResource("LabelSettings_kqb6d")
+
+[node name="first6" type="Label" parent="Tutorial"]
+z_index = -1
+offset_left = -33.0
+offset_top = -45.0
+offset_right = 80.0
+offset_bottom = -22.0
+scale = Vector2(0.75, 0.75)
+text = "You need to go down"
+label_settings = SubResource("LabelSettings_kqb6d")
+
+[node name="first3" type="Label" parent="Tutorial"]
+z_index = -1
+offset_left = -124.0
+offset_top = 56.0
+offset_right = -11.0
+offset_bottom = 79.0
+scale = Vector2(0.75, 0.75)
+text = "This platform is fake"
+label_settings = SubResource("LabelSettings_kqb6d")
+
+[node name="first7" type="Label" parent="Tutorial"]
+z_index = -1
+offset_left = -123.0
+offset_top = 77.0
+offset_right = -115.0
+offset_bottom = 93.0
+scale = Vector2(0.75, 0.75)
+text = "\\/"
+label_settings = SubResource("LabelSettings_kqb6d")
+
+[node name="first8" type="Label" parent="Tutorial"]
+z_index = -1
+offset_left = -123.0
+offset_top = 85.0
+offset_right = -115.0
+offset_bottom = 101.0
+scale = Vector2(0.75, 0.75)
+text = "\\/"
+label_settings = SubResource("LabelSettings_kqb6d")
+
+[node name="first4" type="Label" parent="Tutorial"]
+z_index = -1
+offset_left = -126.0
+offset_top = -47.0
+offset_right = 31.0
+offset_bottom = 1.0
+scale = Vector2(0.5, 0.5)
+text = "You can remove any platform by pressing \"R\" and clicking on the platform."
+label_settings = SubResource("LabelSettings_kqb6d")
+autowrap_mode = 2
+
+[node name="first5" type="Label" parent="Tutorial"]
+z_index = -1
+offset_left = -68.0
+offset_top = 15.0
+offset_right = 112.0
+offset_bottom = 111.0
+scale = Vector2(0.5, 0.5)
+text = "You can also place removed platforms anywhere by clicking on the \"+\" and clicking on the location where you want to add the platform."
+label_settings = SubResource("LabelSettings_kqb6d")
+autowrap_mode = 2
+
+[connection signal="pressed" from="Camera/ParallaxBackground/ParallaxLayer/Plus" to="." method="_on_plus_pressed"]
+[connection signal="pressed" from="Camera/ParallaxBackground/ParallaxLayer/Remove" to="." method="_on_remove_pressed"]
+[connection signal="body_entered" from="Win" to="." method="_on_win_body_entered"]
